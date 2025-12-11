@@ -76,8 +76,8 @@ public class Music extends SubsystemBase {
 
         try {
             songChooser = new SendableChooser<>();
-            songChooser.setDefaultOption(musicFiles[0], musicFiles[0]);
-            for (int i = 1; i < musicFiles.length; i++) {
+            songChooser.setDefaultOption("Disable Music", "disable");
+            for (int i = 0; i < musicFiles.length; i++) {
                 songChooser.addOption(musicFiles[i], musicFiles[i]);
             }
             SmartDashboard.putData("Song Chooser", songChooser);
@@ -101,16 +101,19 @@ public class Music extends SubsystemBase {
 
     public void loadPlayMusic(String file) {
         m_orchestra.stop();
+        System.out.println("Music stopped");
 
-        // Attempt to load the chrp
-        var status = m_orchestra.loadMusic(file);
+        if (!file.equalsIgnoreCase("disable")) {
+            // Attempt to load the chrp
+            var status = m_orchestra.loadMusic(file);
 
-        if (!status.isOK()) {
-            // log error
+            if (!status.isOK()) {
+                // log error
+            }
+
+            m_orchestra.play();
+
+            System.out.println("Playing music: " + file);
         }
-
-        m_orchestra.play();
-
-        System.out.println("Playing music: " + file);
     }
 }
