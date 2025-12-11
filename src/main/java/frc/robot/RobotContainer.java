@@ -21,6 +21,8 @@ import frc.robot.subsystems.ArmSubsystem;
 import frc.robot.subsystems.ClimbCamera;
 import frc.robot.subsystems.ClimbSubsystem;
 import frc.robot.subsystems.EndEffectorSubsystem;
+import frc.robot.subsystems.LEDs;
+import frc.robot.subsystems.Music;
 import frc.robot.subsystems.StateManager;
 import frc.robot.subsystems.SwerveSubsystem;
 import frc.robot.subsystems.TelescopeSubsystem;
@@ -67,6 +69,9 @@ public class RobotContainer {
   private final WristNotDiffy wrist = new WristNotDiffy();
 
   private final SwerveSubsystem drivebase = new SwerveSubsystem();
+
+  private final LEDs leds = new LEDs();
+  // public final Music music = new Music(drivebase);
   
   // create a new pivot subystem object
   private final ArmSubsystem arm = new ArmSubsystem();
