@@ -74,7 +74,7 @@ public class RobotContainer {
   private final SwerveSubsystem drivebase = new SwerveSubsystem();
 
   private final LEDs leds = new LEDs();
-  // public final Music music = new Music(drivebase);
+  public final Music music = new Music(drivebase);
   
   // create a new pivot subystem object
   private final ArmSubsystem arm = new ArmSubsystem();
