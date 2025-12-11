@@ -18,6 +18,7 @@ import frc.robot.commands.WristCommand;
 import frc.robot.commands.WristCommandDirectAxes;
 // import frc.robot.commands.ArmCommand;
 import frc.robot.subsystems.ArmSubsystem;
+import frc.robot.subsystems.BumperAddressableLED;
 import frc.robot.subsystems.ClimbCamera;
 import frc.robot.subsystems.ClimbSubsystem;
 import frc.robot.subsystems.EndEffectorSubsystem;
@@ -34,6 +35,7 @@ import com.pathplanner.lib.auto.AutoBuilder;
 import com.pathplanner.lib.auto.NamedCommands;
 import com.pathplanner.lib.commands.PathPlannerAuto;
 
+import edu.wpi.first.wpilibj.AddressableLED;
 import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.PowerDistribution;
 import edu.wpi.first.wpilibj.Timer;
@@ -49,6 +51,7 @@ import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import edu.wpi.first.wpilibj2.command.WaitCommand;
 import edu.wpi.first.wpilibj2.command.button.CommandPS5Controller;
 //import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
+import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 
 
 
@@ -72,6 +75,8 @@ public class RobotContainer {
   private final ArmSubsystem arm = new ArmSubsystem();
 
   private final TelescopeSubsystem telescope = new TelescopeSubsystem();
+
+  private final BumperAddressableLED bumperLEDs = new BumperAddressableLED();
 
   // private final ClimbSubsystem climb = new ClimbSubsystem();
 
@@ -149,9 +154,9 @@ public class RobotContainer {
 
 
   SwerveInputStream driveAngularVelocity = SwerveInputStream.of(drivebase.getSwerveDrive(), 
-                                                                () -> driverController.getLeftY() * -1,
-                                                                () -> driverController.getLeftX() * -1)
-                                                                .withControllerRotationAxis(driverController::getRightX)
+                                                                () -> driverController.getLeftY() * -0.8,
+                                                                () -> driverController.getLeftX() * -0.8)
+                                                                .withControllerRotationAxis(() -> driverController.getRightX() * 0.5)
                                                                 .deadband(OperatorConstants.DEADBAND)
                                                                 .scaleTranslation(OperatorConstants.TRANSLATION_SCALE)
                                                                 .scaleRotation(-OperatorConstants.ROTATION_SCALE)
@@ -255,7 +260,7 @@ public class RobotContainer {
     // driverController.circle().onTrue(new ArmCommand(arm, 3));
     // driverController.triangle().onTrue(new ArmCommand(arm, 4));
 
-    driverController.L1().onTrue(new OuttakeCommand(intake).withTimeout(1.5));
+    driverController.R2().onTrue(new OuttakeCommand(intake).withTimeout(1.5));
 
     // operatorController.L2().whileTrue(wrist.runAxes(operatorController.getRightX(), operatorController.getLeftY()));
                                                             
@@ -278,6 +283,10 @@ public class RobotContainer {
     
     driverController.R1().onTrue(stateManager.goToState(0, telescope, arm, wrist));
 
+    // driverController.button(3).onTrue(stateManager.goToState(1, telescope, arm, wrist));
+    // driverController.button(1).onTrue(stateManager.goToState(2, telescope, arm, wrist));
+    // driverController.button(2).onTrue(stateManager.goToState(3, telescope, arm, wrist));
+
     driverController.square().onTrue(stateManager.goToState(1, telescope, arm, wrist));
     driverController.cross().onTrue(stateManager.goToState(2, telescope, arm, wrist));
     driverController.circle().onTrue(stateManager.goToState(3, telescope, arm, wrist));
@@ -296,20 +305,23 @@ public class RobotContainer {
     //                               .andThen(stateManager.setRobotState(6)))));
 
     // driverController.R2().onTrue(stateManager.goToState(6, telescope, arm, wrist));
-    driverController.R2().onTrue(new SequentialCommandGroup(stateManager.goToState(6, telescope, arm, wrist),
-                                 new IntakeCommand(intake).until(driverController.R3())));
+    driverController.L2().onTrue(new SequentialCommandGroup(stateManager.goToState(6, telescope, arm, wrist),
+                                 new IntakeCommand(intake).until(driverController.povDown())));
     
+    // driverController.button(4).onTrue(new SequentialCommandGroup(stateManager.goToState(5, telescope, arm, wrist),
+    //                               new IntakeCommand(intake).until(driverController.povDown())));
+
     driverController.triangle().onTrue(new SequentialCommandGroup(stateManager.goToState(5, telescope, arm, wrist),
-                                  new IntakeCommand(intake).until(driverController.R3())));
+                                  new IntakeCommand(intake).until(driverController.povDown())));
 
   // driverController.R2().and(() -> stateManager.robotState == 6).onTrue(
   //                                     new IntakeCommand(intake).until(driverController.R3()));
     
-    driverController.L2().onTrue(new LowerCommand(arm, telescope));
+    // driverController.L2().onTrue(new LowerCommand(arm, telescope));
 
     // operatorController.R2().and(() -> intake.intakeMode).onTrue(new IntakeCommand(intake).until(() -> driverController.L2().getAsBoolean()));
     // operatorController.R2().and(() -> !intake.intakeMode).onTrue(new OuttakeCommand(intake).withTimeout(0.6));
-    driverController.L3().whileTrue(drivebase.zeroGyro()); //zero the gyro when square(?) is pressed
+    driverController.R3().whileTrue(drivebase.zeroGyro()); //zero the gyro when square(?) is pressed
 
     // driverController.povDown().whileTrue(climb.outake());
 

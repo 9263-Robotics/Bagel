@@ -37,22 +37,22 @@ public final class Constants {
 
   public static class ArmConstants {
     public static class PIDConstants {
-      public static final double kP = 0.025;
+      public static final double kP = 0.027;
       public static final double kI = 0;
       public static final double kD = 0;
       // public static final double kMaxVel = 750;
-      public static final double kMaxVel = 750;
+      public static final double kMaxVel = 825;
       // public static final double kMaxAccel = 450;
-      public static final double kMaxAccel = 450;
+      public static final double kMaxAccel = 500;
     }
     public static class ArmAngles {
       public static double Stowed = 132;
       public static double L1     = 96;
       public static double L2     = 89;
-      public static double L3     = 65.6;
+      public static double L3     = 64;
       public static double Climb     = 3;
       public static double Intake = 60;
-      public static double Ground = 117;
+      public static double Ground = 116.5;
       public static double Intermediate = 110;
 
 
@@ -73,13 +73,13 @@ public final class Constants {
 
   public static class TelescopeConstants {
     public static class PIDConstants {
-      public static final double kP = 0.03;
+      public static final double kP = 0.033;
       public static final double kI = 0;
       public static final double kD = 0;
 
-      public static final double kMaxVel = 175;
+      public static final double kMaxVel = 200;
       // public static final double kMaxVel = 50;
-      public static final double kMaxAccel = 225;
+      public static final double kMaxAccel = 250;
       // public static final double kMaxAccel = 100;
     }
 
@@ -90,7 +90,7 @@ public final class Constants {
       public static double L3     = 28;
       public static double Climb  = 0;
       public static double Intake = 10;
-      public static double Ground = 23;
+      public static double Ground = 24;
       public static double Intermediate = 27;
     }
 
@@ -142,13 +142,13 @@ public final class Constants {
 
       public static final class PresetsNonDiffy{
         public static double STOWED = 0;
-        public static double L1 = 3.7 *5;
-        public static double L2 = 3.7 *5;
+        public static double L1 = 3.4 *5;
+        public static double L2 = 3.4 *5;
         public static double L3 = 6 *5;
         public static double Climb = 0 *5;
         public static double INTAKE = 15.1 *5;
         public static double INTERMEDIATE = 5 *5;
-        public static double GROUND =  13.4 *5;
+        public static double GROUND =  13 *5;
       }
   }
 }
