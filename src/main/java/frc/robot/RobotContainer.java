@@ -74,14 +74,14 @@ public class RobotContainer {
   private final SwerveSubsystem drivebase = new SwerveSubsystem();
 
   private final LEDs leds = new LEDs();
-  // public final Music music = new Music(drivebase);
+  public final Music music = new Music(drivebase);
   
   // create a new pivot subystem object
   private final ArmSubsystem arm = new ArmSubsystem();
 
   private final TelescopeSubsystem telescope = new TelescopeSubsystem();
 
-  private final BumperAddressableLED bumperLEDs = new BumperAddressableLED();
+  // private final BumperAddressableLED bumperLEDs = new BumperAddressableLED();
 
   // private final ClimbSubsystem climb = new ClimbSubsystem();
 

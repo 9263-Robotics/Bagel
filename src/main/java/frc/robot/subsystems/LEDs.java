@@ -79,7 +79,7 @@ public class LEDs extends SubsystemBase {
             }
 
             if (ledGroupCounter == 4) {
-                m_ledBuffer.setLED(i, Color.kWhite);
+                // m_ledBuffer.setLED(i, Color.kWhite);
                 ledGroupCounter = 0;
                 goldGroup = !goldGroup;
                 greenGroup = !greenGroup;
